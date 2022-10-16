@@ -1,0 +1,14 @@
+<div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+          <div class="carousel-inner" role="listbox" style="width: 1000px;  left: 670px; top: 300px;">
+                <img src="../assets/img/logoos.png" >
+          </div>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+           <ol class="breadcrumb float-sm-right"></ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>

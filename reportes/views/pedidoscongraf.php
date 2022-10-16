@@ -1,0 +1,339 @@
+<?php
+$conexion = mysqli_connect('localhost', 'root', '', 'store');
+?>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="#" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="views/bootstrap/css/bootstrap.min.css">
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="main.css">
+    <!--datables CSS básico-->
+    <link rel="stylesheet" type="text/css" href="views/datatables/datatables.min.css" />
+    <!--datables estilo bootstrap 4 CSS-->
+    <link rel="stylesheet" type="text/css" href="views/datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">
+    <!--font awesome con CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="" href="https://cdn.datatables.net/fixedheader/3.1.6/css/fixedHeader.dataTables.min.css">
+
+    
+    <style>
+    /*estilos para la tabla*/
+    table th {
+        background-color: #f37f21;
+        color: black;
+    }
+    </style>
+</head>
+
+
+<body>
+    <header>
+        <h2 class="text-center">Pedidos</h2>
+    </header>
+    <br>
+    <table align="right" cellspacing="5" cellpadding="5">
+        <tbody>
+            <tr>
+                <td>Minimum date:</td>
+                <td><input type="text" id="min" name="min"></td>
+            </tr>
+            <tr>
+                <td>Maximum date:</td>
+                <td><input type="text" id="max" name="max"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="table-responsive">
+        <table id="pedidospendientes" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Numero Pedido</th>
+                    <th>Nombre Cliente</th>
+                    <th>DNI/CUIT</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                    <th>Tipo Envio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+$sql = "SELECT
+v.NumPedido, CONCAT(c.NombreCompleto,' ',c.Apellido) as Nombre_Cliente, c.NIT, v.TotalPagar, v.Estado, v.Fecha, v.TipoEnvio
+FROM
+venta v
+JOIN cliente c ON
+c.NIT = v.NIT ";
+$result = mysqli_query($conexion, $sql);
+while ($mostrar = mysqli_fetch_array($result)) {
+    ?>
+                <tr>
+                    <td><?php echo $mostrar['NumPedido'] ?></td>
+                    <td><?php echo $mostrar['Nombre_Cliente'] ?></td>
+                    <td><?php echo $mostrar['NIT'] ?></td>
+                    <td>$<?php echo $mostrar['TotalPagar'] ?></td>
+                    <td><?php echo $mostrar['Estado'] ?></td>
+                    <td><?php echo $mostrar['Fecha'] ?></td>
+                    <td><?php echo $mostrar['TipoEnvio'] ?></td>
+                </tr>
+                <?php
+}
+?>
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+    </div>
+    <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script src="views/jquery/jquery-3.3.1.min.js"></script>
+    <script src="views/popper/popper.min.js"></script>
+    <script src="views/bootstrap/js/bootstrap.min.js"></script>
+    <!-- datatables JS -->
+    <script type="text/javascript" src="views/datatables/datatables.min.js"></script>
+    <!-- DataTables  & Plugins -->
+    <script type="text/javascript" src="main.js"></script>
+    <script src="views/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="views/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="views/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="views/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="views/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="views/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="views/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="views/plugins/jszip/jszip.min.js"></script>
+    <script src="views/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="views/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="views/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="views/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="views/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.1.6/js/dataTables.fixedHeader.min.js"></script>
+
+
+   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+   <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
+   <script src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
+
+    <script>
+    var minDate, maxDate;
+
+    // Custom filtering function which will search data in column four between two values
+    $.fn.dataTable.ext.search.push(
+        function(settings, data, dataIndex) {
+            var min = minDate.val();
+            var max = maxDate.val();
+            var date = new Date(data[4]);
+
+            if (
+                (min === null && max === null) ||
+                (min === null && date <= max) ||
+                (min <= date && max === null) ||
+                (min <= date && date <= max)
+            ) {
+                return true;
+            }
+            return false;
+        }
+    );
+    </script>
+
+    <script>
+    $(document).ready(function() {
+        // Create date inputs
+        minDate = new DateTime($('#min'), {
+            format: 'MMMM Do YYYY'
+        });
+        maxDate = new DateTime($('#max'), {
+            format: 'MMMM Do YYYY'
+        });
+
+        // DataTables initialisation
+        var table = $('#pedidospendientes').DataTable();
+
+        // Refilter the table
+        $('#min, #max').on('change', function() {
+            table.draw();
+        })
+
+        var table = $('#pedidospendientes').DataTable({
+            orderCellsTop: true,
+            fixedHeader: true,
+            dom: 'Bfrtip',
+            buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+        });
+
+        //Creamos una fila en el head de la tabla y lo clonamos para cada columna
+        $('#pedidospendientes thead tr').clone(true).appendTo('#pedidospendientes thead');
+        $('#pedidospendientes thead tr:eq(1) th').each(function(i) {
+            var title = $(this).text(); //es el nombre de la columna
+            $(this).html('<input type="text" placeholder="Buscar...' + title + '" />');
+            $('input', this).on('keyup change', function() {
+                if (table.column(i).search() !== this.value) {
+                    table
+                        .column(i)
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+    });
+    </script>
+
+    <section class="col-lg-7 connectedSortable">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-chart-pie mr-1"></i>
+                    Cantidad de Pedidos por Estado
+                </h3>
+                <div class="card-tools">
+                    <!-- This will cause the card to maximize when clicked -->
+                    <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
+                            class="fas fa-expand"></i></button>
+                    <!-- This will cause the card to collapse when clicked -->
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                            class="fas fa-minus"></i></button>
+                    <!-- This will cause the card to be removed when clicked -->
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i
+                            class="fas fa-times"></i></button>
+                </div>
+            </div><!-- /.card-header -->
+            <div class="card-body">
+                <div class="tab-content p-0">
+                    <canvas id="myChart" style="position: relative; width=10vh; height=10vh"></canvas>
+                    <script>
+                    var ctx = document.getElementById('myChart');
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            datasets: [{
+                                label: 'Cantidad Pedidos por Estado:',
+                                backgroundColor: ['#DC440F', '#64B5F6', '#15F607', '#0A7A1B',
+                                    '#EC9207'
+                                ],
+                                borderColor: ['black'],
+                                borderWidth: 1
+                            }]
+                        },
+
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            },
+                            title: {
+                                display: true,
+
+                            }
+                        }
+
+                    })
+
+
+
+                    let urlPedPen = 'http://localhost/Tesis-OssilEnvases/reportes/consultas/pedidosporestado.php'
+                    fetch(urlPedPen)
+                        .then(response => response.json())
+                        .then(datos => mostrarPedPen(datos))
+                        .catch(error => console.log(error))
+
+
+                    const mostrarPedPen = (articulos) => {
+                        articulos.forEach(element => {
+                            myChart.data['labels'].push(element.Estado)
+                            myChart.data['datasets'][0].data.push(element.cantidad_pedidos)
+                            myChart.update()
+                        });
+                        console.log(myChart.data)
+                    }
+                    </script>
+
+                </div>
+            </div>
+    </section>
+
+    <section class="col-lg-7 connectedSortable">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-chart-pie mr-1"></i>
+                    Cantidad de Pedidos por Tipo de Envio
+                </h3>
+                <div class="card-tools">
+                    <!-- This will cause the card to maximize when clicked -->
+                    <button type="button" class="btn btn-tool" data-card-widget="maximize"><i
+                            class="fas fa-expand"></i></button>
+                    <!-- This will cause the card to collapse when clicked -->
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                            class="fas fa-minus"></i></button>
+                    <!-- This will cause the card to be removed when clicked -->
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i
+                            class="fas fa-times"></i></button>
+                </div>
+            </div><!-- /.card-header -->
+            <div class="card-body p-0">
+                <div class="tab-content p-0">
+                    <canvas id="myChart2" style="position: relative; width=10vh; height=10vh"></canvas>
+                    <script>
+                    var ctx = document.getElementById('myChart2');
+                    var myChart2 = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            datasets: [{
+                                label: 'Cantidad Pedidos por Tipo de Envio:',
+                                backgroundColor: ['#DC440F', '#64B5F6', '#15F607', '#0A7A1B',
+                                    '#EC9207'
+                                ],
+                                borderColor: ['black'],
+                                borderWidth: 1
+                            }]
+                        },
+
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            },
+                            title: {
+                                display: true,
+
+                            }
+                        }
+
+                    })
+
+
+
+                    let urlPedPen2 = 'http://localhost/Tesis-OssilEnvases/reportes/consultas/pedidosporenvio.php'
+                    fetch(urlPedPen2)
+                        .then(response => response.json())
+                        .then(datos => mostrarPedPen2(datos))
+                        .catch(error => console.log(error))
+
+
+                    const mostrarPedPen2 = (articulos) => {
+                        articulos.forEach(element => {
+                            myChart2.data['labels'].push(element.TipoEnvio)
+                            myChart2.data['datasets'][0].data.push(element.Cantidad_Envio)
+                            myChart2.update()
+                        });
+                        console.log(myChart2.data)
+                    }
+                    </script>
+
+                </div>
+            </div>
+    </section>
+</body>
+
+</html>
