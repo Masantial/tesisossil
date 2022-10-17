@@ -60,6 +60,18 @@
                                   <p>Productos con Faltante</p>
                               </a>
                           </li>
+                          <li class="nav-item">
+                <a onclick="CargarContenido('content-wrapper','views/ganancianetagraf.php')" class="nav-link active" style="cursor:pointer;">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ganancia Neta</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a onclick="CargarContenido('content-wrapper','views/ganancianetamontograf.php')" class="nav-link active" style="cursor:pointer;">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ganancia en Monto</p>
+                </a>
+              </li>
                       </ul>
 
                   </li>
