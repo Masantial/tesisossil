@@ -3,7 +3,7 @@
 
 <head>
     <link rel="shortcut icon" type="image/x-icon" href="assets\img\logosolo.png">
-    <title>Ossil Envases</title>
+    <title>Ossil Envasess</title>
    
     <?php include './inc/link.php'; ?>
 </head>
