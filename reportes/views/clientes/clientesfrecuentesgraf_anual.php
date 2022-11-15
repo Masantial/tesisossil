@@ -40,10 +40,22 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
 
 <body>
     <header>
-        <h2 class="text-center">Clientes Frecuentes</h2>
-        <h6 class="text-center">(Se listarán los clientes que tengan al menos 10 pedidos enviados o entregados en su historial)</h6>
+        <h2 class="text-center">Clientes Frecuentes Anual</h2>
+        <h6 class="text-center">(Se listarán los clientes que tengan al menos 10 pedidos enviados o entregados en el periodo requerido)</h6>
 
     </header>
+    <table align="right" cellspacing="5" cellpadding="5">
+        <tbody>
+            <tr>
+                <td>Fecha Desde:</td>
+                <td><input type="text" id="min" name="min"></td>
+            </tr>
+            <tr>
+                <td>Fecha Hasta:</td>
+                <td><input type="text" id="max" name="max"></td>
+            </tr>
+        </tbody>
+    </table>
     <br>
 
 
@@ -203,14 +215,14 @@ while ($mostrar = mysqli_fetch_array($result)) {
 
 
 
-                let urlClientesFrec = 'http://localhost/Tesis-OssilEnvases/reportes/consultas/clientesfreccantped.php'
-                fetch(urlClientesFrec)
+                let urlClientesFrecanual = 'http://localhost/Tesis-OssilEnvases/reportes/consultas/clientesfreccantped_anual.php'
+                fetch(urlClientesFrecanual)
                     .then(response => response.json())
-                    .then(datos => mostrarClientesFrec(datos))
+                    .then(datos => mostrarClientesFrecanual(datos))
                     .catch(error => console.log(error))
 
 
-                const mostrarClientesFrec = (articulos) => {
+                const mostrarClientesFrecanual = (articulos) => {
                     articulos.forEach(element => {
                         myChart.data['labels'].push(element.Nombre_Cliente)
                         myChart.data['datasets'][0].data.push(element.Cant_Pedidos)
@@ -262,15 +274,15 @@ while ($mostrar = mysqli_fetch_array($result)) {
 
 
 
-                let urlClientesFrecmonto =
-                    'http://localhost/Tesis-OssilEnvases/reportes/consultas/clientesfreccantped.php'
-                fetch(urlClientesFrecmonto)
+                let urlClientesFrecmontoanual =
+                    'http://localhost/Tesis-OssilEnvases/reportes/consultas/clientesfreccantped_anual.php'
+                fetch(urlClientesFrecmontoanual)
                     .then(response => response.json())
-                    .then(datos => mostrarClientesFrecmonto(datos))
+                    .then(datos => mostrarClientesFrecmontoanual(datos))
                     .catch(error => console.log(error))
 
 
-                const mostrarClientesFrecmonto = (articulos) => {
+                const mostrarClientesFrecmontoanual = (articulos) => {
                     articulos.forEach(element => {
                         myChart2.data['labels'].push(element.Nombre_Cliente)
                         myChart2.data['datasets'][0].data.push(element.Monto)

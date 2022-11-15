@@ -39,18 +39,18 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
 </head>
 
 <body>
-    <header>
+<header>
+        <h2 class="text-center">Porcentaje Ganancia Neta Mensual</h2>
+        <h6 class="text-center">(Se tendrán en cuenta todos los pedidos realizados)</h6>
 
     </header>
     <br>
-    <div class="table-responsive">
-    <div class="card card-dark">
-        <div class="card-header">
-            <h3 class="card-title">Ganancia en margen por Producto</h3>
-        </div>
+
+    <div class="card">
+        
         <div class="card-body">
             <div class="table-responsive">
-                <table id="GananciaNetaMonto" class="table table-striped table-bordered" style="width:85%">
+                <table id="GananciaNeta" class="table table-striped table-bordered" style="width:85%">
                     <thead>
                         <tr>
                             <th>Codigo</th>
@@ -61,20 +61,22 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
                             <th>Cantidad Vendida</th>
                             <th>Costo Total</th>
                             <th>Venta Total</th>
-                            <th>Margen Ganancia</th>
+                            <th>Margen ganancia</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         $sql = "Select distinct p.CodigoProd,P.NombreProd,P.Marca,P.Costo,D.PrecioProd as PrecioVenta,
-(select sum(D1.cantidadProductos) from detalle d1 where d1.CodigoProd = P.CodigoProd) as CantidadesVendidas,
-(select sum(D1.cantidadProductos)  from detalle d1 where d1.CodigoProd = P.CodigoProd)*P.Costo as CostoTotal,
-(select sum(D1.cantidadProductos)  from detalle d1 where d1.CodigoProd = P.CodigoProd)*D.PrecioProd as PrecioTotal,
-cast((
-((((select sum(D2.cantidadProductos)  from detalle d2 where d2.CodigoProd = P.CodigoProd)*D.PrecioProd)) / ((select sum(D2.cantidadProductos)  from detalle d2 where d2.CodigoProd = P.CodigoProd)*P.Costo)) * 100) as Double) as PorcentajeGanancia
-from producto p
-inner join detalle D on P.codigoProd = D.CodigoProd
-";
+                        (select sum(D1.cantidadProductos) from detalle d1 where d1.CodigoProd = P.CodigoProd) as CantidadesVendidas,
+                        (select sum(D1.cantidadProductos)  from detalle d1 where d1.CodigoProd = P.CodigoProd)*P.Costo as CostoTotal,
+                        (select sum(D1.cantidadProductos)  from detalle d1 where d1.CodigoProd = P.CodigoProd)*D.PrecioProd as PrecioTotal,
+                        cast((
+                        ((((select sum(D2.cantidadProductos)  from detalle d2 where d2.CodigoProd = P.CodigoProd)*D.PrecioProd)) / ((select sum(D2.cantidadProductos)  from detalle d2 where d2.CodigoProd = P.CodigoProd)*P.Costo)) * 100) as Double) as PorcentajeGanancia
+                        from producto p
+                        inner join detalle D on P.codigoProd = D.CodigoProd
+                        inner join venta v on v.NumPedido = D.NumPedido 
+                        where v.Estado not in ('Cancelado','Pendiente','En Preparacion')";                     
+
                         $result = mysqli_query($conexion, $sql);
                         while ($mostrar = mysqli_fetch_array($result)) {
                         ?>
@@ -87,7 +89,7 @@ inner join detalle D on P.codigoProd = D.CodigoProd
                             <td><?php echo $mostrar['CantidadesVendidas'] ?></td>
                             <td>$<?php echo $mostrar['CostoTotal'] ?></td>
                             <td>$<?php echo $mostrar['PrecioTotal'] ?></td>
-                            <td>$<?php echo $mostrar['PorcentajeGanancia'] ?></td>
+                            <td><?php echo $mostrar['PorcentajeGanancia'] ?>%</td>
 
                         </tr>
                         <?php
@@ -95,7 +97,7 @@ inner join detalle D on P.codigoProd = D.CodigoProd
                         ?>
                     </tbody>
                 </table>
-                </div>
+
                 <!-- jQuery, Popper.js, Bootstrap JS -->
                 <script src="views/jquery/jquery-3.3.1.min.js"></script>
                 <script src="views/popper/popper.min.js"></script>
@@ -127,7 +129,7 @@ inner join detalle D on P.codigoProd = D.CodigoProd
 
                 <script>
                 $(document).ready(function() {
-                    var table = $('#GananciaNetaMonto').DataTable({
+                    var table = $('#GananciaNeta').DataTable({
                         orderCellsTop: true,
                         fixedHeader: true,
                         dom: 'Bfrtip',
@@ -137,9 +139,9 @@ inner join detalle D on P.codigoProd = D.CodigoProd
                     });
 
                     //Creamos una fila en el head de la tabla y lo clonamos para cada columna
-                    $('#GananciaNetaMonto thead tr').clone(true).appendTo('#GananciaNetaMonto thead');
+                    $('#GananciaNeta thead tr').clone(true).appendTo('#GananciaNeta thead');
 
-                    $('#GananciaNetaMonto thead tr:eq(1) th').each(function(i) {
+                    $('#GananciaNeta thead tr:eq(1) th').each(function(i) {
                         var title = $(this).text(); //es el nombre de la columna
                         $(this).html('<input type="text" placeholder="Buscar...' + title + '" />');
 
@@ -158,17 +160,18 @@ inner join detalle D on P.codigoProd = D.CodigoProd
 </div>
 </div>
 <div class="card">
-    <canvas id="myChart1" style="position: relative; width=10vh; height=10vh"></canvas>
+    <canvas id="myChart" style="position: relative; width=10vh; height=10vh"></canvas>
     <script>
     var ctx = document.getElementById('myChart');
-    var myChart1 = new Chart(ctx, {
-        type: 'bar',
+    var GananciaNeta = new Chart(ctx, {
+        type: 'line',
         data: {
             datasets: [{
-                label: 'Monto ganancia por Producto',
-                backgroundColor: ['#34444c',0, 0, 0, 0.1],                 
-                borderColor: ['black','black','black','black','black','black','black','black','black'],
-                borderWidth: 1
+                label: 'Margen por Producto',
+                backgroundColor: ['#34444c'],
+                borderColor: ['black'],
+                borderWidth: 1,
+                fill: false
             }]
         },
         options: {
@@ -181,21 +184,22 @@ inner join detalle D on P.codigoProd = D.CodigoProd
     })
 
 
-    let urlGananciaNetaMonto = 'http://localhost/Tesis-OssilEnvases/reportes/consultas/ganancianetamonto.php'
-    fetch(urlGananciaNetaMonto)
+    let urlGananciaNeta_Mensual = 'http://localhost/Tesis-OssilEnvases/reportes/consultas/GananciaNeta.php'
+    fetch(urlGananciaNeta_Mensual)
         .then(response => response.json())
-        .then(datos => mostrarGananciaNetaMonto(datos))
+        .then(datos => mostrarGananciaNeta_Mensual(datos))
         .catch(error => console.log(error))
 
 
-    const mostrarGananciaNetaMonto = (articulos) => {
+    const mostrarGananciaNeta_Mensual = (articulos) => {
         articulos.forEach(element => {
-            myChart1.data['labels'].push(element.NombreProd)
-            myChart1.data['datasets'][0].data.push(element.MontoGanancia)
-            myChart1.update()
+            GananciaNeta.data['labels'].push(element.NombreProd)
+            GananciaNeta.data['datasets'][0].data.push(element.PorcentajeGanancia)
+            GananciaNeta.update()
         });
-        console.log(myChart1.data)
+        console.log(myChart.data)
     }
     </script>
 </div>
+
 </html>

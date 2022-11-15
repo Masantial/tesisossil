@@ -41,7 +41,7 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
 
 <body>
     <header>
-        <h2 class="text-center">Monto Total Pedido por Mes</h2>
+        <h2 class="text-center">Monto Total Pedido historico por Mes</h2>
         <h6 class="text-center">(Solo se contemplan pedidos Entregados y Enviados)</h6>
 
     </header>

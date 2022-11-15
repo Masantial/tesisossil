@@ -30,21 +30,21 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
     <link rel="" href="https://cdn.datatables.net/fixedheader/3.1.6/css/fixedHeader.dataTables.min.css">
 
     <style>
-    /*estilos para la tabla*/
-    table th {
-        background-color: #f37f21;
-        color: black;
-    }
+        /*estilos para la tabla*/
+        table th {
+            background-color: #f37f21;
+            color: black;
+        }
     </style>
 </head>
 
 <body>
-<header>
-         <h2 class="text-center">Historial de Articulos más Pedidos</h2>
-         
-        
-     </header>  
-<br>
+    <header>
+        <h2 class="text-center">Ranking de Productos más Pedidos Trimestral</h2>
+
+
+    </header>
+    <br>
 
 
     <div class="table-responsive">
@@ -54,8 +54,8 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
                     <th>Codigo</th>
                     <th>Descripcion</th>
                     <th>Cantidad</th>
-                    <th>Precio Unitario</th>
-                    <th>Total</th>
+                    <!-- <th>Precio Unitario</th>
+                    <th>Total</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -83,13 +83,23 @@ SUM(d.CantidadProductos)
 DESC";
 $result = mysqli_query($conexion, $sql);
 while ($mostrar = mysqli_fetch_array($result)) {
-    ?>
+?>
                 <tr>
-                    <td><?php echo $mostrar['CodigoProd'] ?></td>
-                    <td><?php echo $mostrar['NombreProd'] ?></td>
-                    <td><?php echo $mostrar['cantidad'] ?></td>
-                    <td>$<?php echo $mostrar['Precio_Unitario'] ?></td>
-                    <td>$<?php echo $mostrar['monto'] ?></td>
+                    <td>
+                        <?php echo $mostrar['CodigoProd'] ?>
+                    </td>
+                    <td>
+                        <?php echo $mostrar['NombreProd'] ?>
+                    </td>
+                    <td>
+                        <?php echo $mostrar['cantidad'] ?>
+                    </td>
+                    <!-- <td>$
+                        <?php echo $mostrar['Precio_Unitario'] ?>
+                    </td>
+                    <td>$
+                        <?php echo $mostrar['monto'] ?>
+                    </td> -->
                 </tr>
                 <?php
 }
@@ -127,33 +137,33 @@ while ($mostrar = mysqli_fetch_array($result)) {
 
 
     <script>
-    $(document).ready(function() {
-        var table = $('#articulosmasvendidos').DataTable({
-            orderCellsTop: true,
-            fixedHeader: true,
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ]
-        });
+        $(document).ready(function () {
+            var table = $('#articulosmasvendidos').DataTable({
+                orderCellsTop: true,
+                fixedHeader: true,
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
 
-        //Creamos una fila en el head de la tabla y lo clonamos para cada columna
-        $('#articulosmasvendidos thead tr').clone(true).appendTo('#articulosmasvendidos thead');
+            //Creamos una fila en el head de la tabla y lo clonamos para cada columna
+            $('#articulosmasvendidos thead tr').clone(true).appendTo('#articulosmasvendidos thead');
 
-        $('#articulosmasvendidos thead tr:eq(1) th').each(function(i) {
-            var title = $(this).text(); //es el nombre de la columna
-            $(this).html('<input type="text" placeholder="Buscar...' + title + '" />');
+            $('#articulosmasvendidos thead tr:eq(1) th').each(function (i) {
+                var title = $(this).text(); //es el nombre de la columna
+                $(this).html('<input type="text" placeholder="Buscar...' + title + '" />');
 
-            $('input', this).on('keyup change', function() {
-                if (table.column(i).search() !== this.value) {
-                    table
-                        .column(i)
-                        .search(this.value)
-                        .draw();
-                }
+                $('input', this).on('keyup change', function () {
+                    if (table.column(i).search() !== this.value) {
+                        table
+                            .column(i)
+                            .search(this.value)
+                            .draw();
+                    }
+                });
             });
         });
-    });
     </script>
     <script>
 
@@ -182,46 +192,46 @@ while ($mostrar = mysqli_fetch_array($result)) {
         <div class="card" width=10vh; height=10vh>
             <canvas id="myChart" style="position: relative; width=10vh; height=10vh"></canvas>
             <script>
-            var ctx = document.getElementById('myChart');
-            var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    datasets: [{
-                        label: 'Cantidad Pedida',
-                        backgroundColor: ['#6bf1ab', '#63d69f', '#438c6c', '#509c7f', '#1f794e',
-                            '#34444c',
-                            '#90CAF9', '#64B5F6', '#42A5F5', '#2196F3', '#0D47A1'
-                        ],
-                        borderColor: ['black'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
+                var ctx = document.getElementById('myChart');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        datasets: [{
+                            label: 'Cantidad Pedida',
+                            backgroundColor: ['#6bf1ab', '#63d69f', '#438c6c', '#509c7f', '#1f794e',
+                                '#34444c',
+                                '#90CAF9', '#64B5F6', '#42A5F5', '#2196F3', '#0D47A1'
+                            ],
+                            borderColor: ['black'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
                         }
                     }
+                })
+
+
+
+                let urlArtMasVendtrimestral = 'http://localhost/Tesis-OssilEnvases/reportes/consultas/productosmasvendidos_trimestral.php'
+                fetch(urlArtMasVendtrimestral)
+                    .then(response => response.json())
+                    .then(datos => mostrarArtMasVendidostrimestral(datos))
+                    .catch(error => console.log(error))
+
+
+                const mostrarArtMasVendidostrimestral = (articulos) => {
+                    articulos.forEach(element => {
+                        myChart.data['labels'].push(element.NombreProd)
+                        myChart.data['datasets'][0].data.push(element.cantidad)
+                        myChart.update()
+                    });
+                    console.log(myChart.data)
                 }
-            })
-
-
-
-            let urlArtMasVend = 'http://localhost/Tesis-OssilEnvases/reportes/consultas/articulosmasvendidos.php'
-            fetch(urlArtMasVend)
-                .then(response => response.json())
-                .then(datos => mostrarArtMasVendidos(datos))
-                .catch(error => console.log(error))
-
-
-            const mostrarArtMasVendidos = (articulos) => {
-                articulos.forEach(element => {
-                    myChart.data['labels'].push(element.NombreProd)
-                    myChart.data['datasets'][0].data.push(element.cantidad)
-                    myChart.update()
-                });
-                console.log(myChart.data)
-            }
             </script>
         </div>
     </div>

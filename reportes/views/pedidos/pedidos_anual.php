@@ -43,23 +43,11 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
 
 <body>
     <header>
-        <h2 class="text-center">Pedidos</h2>
+        <h2 class="text-center">Pedidos Anuales</h2>
         <h6 class="text-center">(Se tendrán en cuenta todos los pedidos realizados)</h6>
 
     </header>
     <br>
-    <table align="right" cellspacing="5" cellpadding="5">
-        <tbody>
-            <tr>
-                <td>Fecha Desde:</td>
-                <td><input type="text" id="min" name="min"></td>
-            </tr>
-            <tr>
-                <td>Fecha Hasta:</td>
-                <td><input type="text" id="max" name="max"></td>
-            </tr>
-        </tbody>
-    </table>
     <div class="table-responsive">
         <table id="pedidos" class="table table-striped table-bordered" style="width:100%">
             <thead>
@@ -76,7 +64,7 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
             <tbody>
                 <?php
 $sql = "SELECT
-v.NumPedido, CONCAT(c.NombreCompleto,' ',c.Apellido) as Nombre_Cliente, c.NIT, v.TotalPagar, v.Estado, cast(v.Fecha as date) as Fecha, v.TipoEnvio
+v.NumPedido, CONCAT(c.NombreCompleto,' ',c.Apellido) as Nombre_Cliente, c.NIT, v.TotalPagar, v.Estado, v.Fecha, v.TipoEnvio
 FROM
 venta v
 JOIN cliente c ON
@@ -140,39 +128,7 @@ while ($mostrar = mysqli_fetch_array($result)) {
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/fixedheader/3.1.6/js/dataTables.fixedHeader.min.js"></script>
-
-
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
-    <script src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
-
-
-    <script>
-    var minDate, maxDate;
-
-    // Custom filtering function which will search data in column four between two values
-    $.fn.dataTable.ext.afnFiltering.push(
-        function(settings, data, dataIndex) {
-            debugger;
-
-            var min = $('#min').val() == "" ? null : new Date($('#min').val());
-            var max = $('#max').val() == "" ? null : new Date($('#max').val());
-            var date = new Date(data[5]);
-
-            if (
-                (min === null && max === null) ||
-                (min === null && date <= max) ||
-                (min <= date && max === null) ||
-                (min <= date && date <= max)
-            ) {
-                return true;
-            }
-            return false;
-        }
-    );
-    </script>
-
+    
     <script>
     $(document).ready(function() {
         var table = $('#pedidos').DataTable({
@@ -197,11 +153,6 @@ while ($mostrar = mysqli_fetch_array($result)) {
             });
         });
 
-        // Refilter the table
-        $('#min, #max').on('change', function() {
-
-            table.draw();
-        })
     });
     </script>
 

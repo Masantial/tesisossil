@@ -9,7 +9,7 @@
 
       <!-- Sidebar -->
       <div class="sidebar">
-          <!-- Sidebar user panel (optional) -->
+          <!-- Sidebar user panel (optional) 
 
 
           <!-- SidebarSearch Form -->
@@ -40,38 +40,133 @@
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
-                              <a onclick="CargarContenido('content-wrapper','views/articulosmasvendidos-graf.php')"
+                              <a class="nav-link active" style="cursor:pointer;">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Productos Mas Pedidos
+                                      <i class="right fas fa-angle-left"></i>
+                                  </p>
+                              </a>
+                              <ul class="nav nav-treeview">
+                                  <li class="nav-item">
+                                      <a onclick="CargarContenido('content-wrapper','views/productos/maspedidos/mensual.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Mensual</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                      <a onclick="CargarContenido('content-wrapper','views/productos/maspedidos/trimestral.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Trimestral</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                      <a onclick="CargarContenido('content-wrapper','views/productos/maspedidos/semestral.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Semestral</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                      <a onclick="CargarContenido('content-wrapper','views/productos/maspedidos/anual.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Anual</p>
+                                      </a>
+                                  </li>
+                              </ul>
+                          </li>
+                          <li class="nav-item">
+                              <a onclick="CargarContenido('content-wrapper','views/productos/productosmasvendidospormes.php')"
                                   class="nav-link active" style="cursor:pointer;">
                                   <i class="far fa-circle nav-icon"></i>
-                                  <p>Historial de Productos Mas Pedidos</p>
+                                  <p>Productos Mas Pedidos por Mes/Año</p>
                               </a>
                           </li>
                           <li class="nav-item">
-                              <a onclick="CargarContenido('content-wrapper','views/articulosmasvendidospormes.php')"
-                                  class="nav-link active" style="cursor:pointer;">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Productos Mas Pedidos por Mes</p>
-                              </a>
-                          </li>
-                          <li class="nav-item">
-                              <a onclick="CargarContenido('content-wrapper','consultas/articulosmenosdelmin.php')"
+                              <a onclick="CargarContenido('content-wrapper','views/productos/productosmenosdelmin.php')"
                                   class="nav-link active" style="cursor:pointer;">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Productos con Faltante</p>
                               </a>
                           </li>
                           <li class="nav-item">
-                <a onclick="CargarContenido('content-wrapper','views/ganancianetagraf.php')" class="nav-link active" style="cursor:pointer;">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Ganancia Neta</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a onclick="CargarContenido('content-wrapper','views/ganancianetamontograf.php')" class="nav-link active" style="cursor:pointer;">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Ganancia en Monto</p>
-                </a>
-              </li>
+                              <a class="nav-link active" style="cursor:pointer;">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Porcentaje de Ganancia Neta
+                                      <i class="right fas fa-angle-left"></i>
+                                  </p>
+                              </a>
+                              <ul class="nav nav-treeview">
+                                  <li class="nav-item">
+                                      <a onclick="CargarContenido('content-wrapper','views/productos/ganancianeta/ganancianetagraf_mensual.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Mensual</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                  <a onclick="CargarContenido('content-wrapper','views/productos/ganancianeta/ganancianetagraf_trimestral.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Trimestral</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                  <a onclick="CargarContenido('content-wrapper','views/productos/ganancianeta/ganancianetagraf_semestral.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Semestral</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                  <a onclick="CargarContenido('content-wrapper','views/productos/ganancianeta/ganancianetagraf_anual.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Anual</p>
+                                      </a>
+                                  </li>
+                              </ul>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link active" style="cursor:pointer;">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Monto de Ganancia Neta
+                                      <i class="right fas fa-angle-left"></i>
+                                  </p>
+                              </a>
+                              <ul class="nav nav-treeview">
+                                  <li class="nav-item">
+                                      <a onclick="CargarContenido('content-wrapper','views/productos/gananciamonto/ganancianetamontograf_mensual.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Mensual</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                  <a onclick="CargarContenido('content-wrapper','views/productos/gananciamonto/ganancianetamontograf_trimestral.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Trimestral</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                  <a onclick="CargarContenido('content-wrapper','views/productos/gananciamonto/ganancianetamontograf_semestral.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Semestral</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                  <a onclick="CargarContenido('content-wrapper','views/productos/gananciamonto/ganancianetamontograf_anual.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Anual</p>
+                                      </a>
+                                  </li>
+                              </ul>
+                          </li>
                       </ul>
 
                   </li>
@@ -85,18 +180,44 @@
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
-                              <a onclick="CargarContenido('content-wrapper','views/clientesfrecuentesgraf.php')"
-                                  class="nav-link active" style="cursor:pointer;">
+                              <a class="nav-link active" style="cursor:pointer;">
                                   <i class="far fa-circle nav-icon"></i>
-                                  <p>Clientes Frecuentes</p>
+                                  <p>Clientes Frecuentes
+                                      <i class="right fas fa-angle-left"></i>
+                                  </p>
                               </a>
+                              <ul class="nav nav-treeview">
+                                  <li class="nav-item">
+                                      <a onclick="CargarContenido('content-wrapper','views/clientes/clientesfrecuentesgraf_mensual.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Mensual</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                  <a onclick="CargarContenido('content-wrapper','views/clientes/clientesfrecuentesgraf_trimestral.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Trimestral</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                  <a onclick="CargarContenido('content-wrapper','views/clientes/clientesfrecuentesgraf_semestral.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Semestral</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                  <a onclick="CargarContenido('content-wrapper','views/clientes/clientesfrecuentesgraf_anual.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Anual</p>
+                                      </a>
+                                  </li>
+                              </ul>
                           </li>
-                          <li class="nav-item">
-                              <a href="#" class="nav-link">
-                                  <i class="far fa-circle nav-icon"></i>
-                                  <p>Inactive Page</p>
-                              </a>
-                          </li>
+
                       </ul>
                   </li>
                   <li class="nav-item menu-close">
@@ -128,13 +249,120 @@
                       </p>
                   </a>
                   <ul class="nav nav-treeview">
-                      <li class="nav-item">
-                          <a onclick="CargarContenido('content-wrapper','views/pedidoscongraf.php')"
-                              class="nav-link active" style="cursor:pointer;">
-                              <i class="far fa-circle nav-icon"></i>
-                              <p>Pedidos</p>
-                          </a>
-                      </li>
+                  <li class="nav-item">
+                              <a class="nav-link active" style="cursor:pointer;">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Pedidos
+                                      <i class="right fas fa-angle-left"></i>
+                                  </p>
+                              </a>
+                              <ul class="nav nav-treeview">
+                                  <li class="nav-item">
+                                      <a onclick="CargarContenido('content-wrapper','views/pedidos/pedidos_mensual.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Mensual</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                  <a onclick="CargarContenido('content-wrapper','views/pedidos/pedidos_trimestral.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Trimestral</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                  <a onclick="CargarContenido('content-wrapper','views/pedidos/pedidos_semestral.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Semestral</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                  <a onclick="CargarContenido('content-wrapper','views/pedidos/pedidos_anual.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Anual</p>
+                                      </a>
+                                  </li>
+                              </ul>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link active" style="cursor:pointer;">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Cantidad de Pedidos por Estado
+                                      <i class="right fas fa-angle-left"></i>
+                                  </p>
+                              </a>
+                              <ul class="nav nav-treeview">
+                                  <li class="nav-item">
+                                      <a onclick="CargarContenido('content-wrapper','views/pedidos/cantidadpedidosporestado_mensual.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Mensual</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                  <a onclick="CargarContenido('content-wrapper','views/pedidos/cantidadpedidosporestado_trimestral.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Trimestral</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                  <a onclick="CargarContenido('content-wrapper','views/pedidos/cantidadpedidosporestado_semestral.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Semestral</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                  <a onclick="CargarContenido('content-wrapper','views/pedidos/cantidadpedidosporestado_anual.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Anual</p>
+                                      </a>
+                                  </li>
+                              </ul>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link active" style="cursor:pointer;">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Cantidad de Pedidos por Envio
+                                      <i class="right fas fa-angle-left"></i>
+                                  </p>
+                              </a>
+                              <ul class="nav nav-treeview">
+                                  <li class="nav-item">
+                                      <a onclick="CargarContenido('content-wrapper','views/pedidos/cantidadpedidosporenvio_mensual.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Mensual</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                  <a onclick="CargarContenido('content-wrapper','views/pedidos/cantidadpedidosporenvio_trimestral.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Trimestral</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                  <a onclick="CargarContenido('content-wrapper','views/pedidos/cantidadpedidosporenvio_semestral.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Semestral</p>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                  <a onclick="CargarContenido('content-wrapper','views/pedidos/cantidadpedidosporenvio_anual.php')"
+                                          class="nav-link" style="cursor:pointer;">
+                                          <i class="far fa-dot-circle nav-icon"></i>
+                                          <p>Anual</p>
+                                      </a>
+                                  </li>
+                              </ul>
+                          </li>
                       <li class="nav-item">
                           <a onclick="CargarContenido('content-wrapper','views/ventaspordiagraf.php')"
                               class="nav-link active" style="cursor:pointer;">
@@ -172,7 +400,7 @@
                   </a>
                   <ul class="nav nav-treeview">
                       <li class="nav-item">
-                          <a onclick="CargarContenido('content-wrapper','views/inventario.php')" class="nav-link active"
+                          <a onclick="CargarContenido('content-wrapper','views/stock/inventario.php')" class="nav-link active"
                               style="cursor:pointer;">
                               <i class="far fa-circle nav-icon"></i>
                               <p>Inventario Valorizado</p>

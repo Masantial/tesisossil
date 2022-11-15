@@ -43,7 +43,7 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
 
 <body>
     <header>
-        <h2 class="text-center">Pedidos</h2>
+        <h2 class="text-center">Pedidos Mensuales</h2>
         <h6 class="text-center">(Se tendrán en cuenta todos los pedidos realizados)</h6>
 
     </header>
