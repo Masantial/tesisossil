@@ -24,7 +24,7 @@
                       <div class="container-fluid">
                         <div class="row">
                           <div class="col-xs-10 col-xs-offset-1">
-                            <p class="text-center lead">Selecciona un metodo de pago</p>
+                            <p class="text-center lead">Continuar con el Pago</p>
                             <img class="img-responsive center-all-contens" src="assets/img/credit-card.png">
                             <p class="text-center">
                               <button class="btn btn-lg btn-raised btn-success btn-block" data-toggle="modal" data-target="#PagoModalTran">Transferencia Bancaria</button>
@@ -49,7 +49,7 @@
         ?>
             <div class="container" style="margin-top: 70px;">
               <div class="page-header">
-                <h1>Mis pedidos</h1>
+                <h1>Historial de Pedidos</h1>
               </div>
             </div>
         <?php
@@ -105,7 +105,7 @@
                                             </td>
                                             <td><?php echo $rw['TipoEnvio']; ?></td>
                                             <td>
-                                            <a href="./pdf/pedidocliente.php?id=<?php echo $order['NumPedido'];  ?>"
+                                            <a href="./pdf/pedidocliente.php?id=<?php echo $rw['NumPedido'];  ?>"
                                         class="btn btn-raised btn-xs btn-primary btn-block" target="_blank">Imprimir</a>
                                         </td>
                                         </tr>
@@ -147,16 +147,17 @@
               <strong>Tipo de cuenta:</strong> <?php echo $datBank['TipoCuenta']; ?><br><br>
             </p>
                 <?php if($_SESSION['UserType']=="Admin"): ?>
-                <div class="form-group">
-                    <label>Numero de deposito</label>
+                <div class="form-group col-md-6">
+                <span>Numero de deposito </span> <span style="color: red;"> *</span>
                     <input class="form-control" type="text" name="NumDepo" placeholder="Numero de deposito" maxlength="50" required="">
                 </div>
-                <div class="form-group">
-                  <span>Tipo De Envio</span>
+                <div class="form-group ">
+                <span>Tipo De Envio</span> <span style="color: red;"> *</span>
                   <select class="form-control" name="tipo-envio" data-toggle="tooltip" data-placement="top" title="Elige El Tipo De Envio">
                       <option value="" disabled="" selected="">Selecciona una opción</option>
-                      <option value="Retiro por Sucursal">Recoger Por Tienda</option>
-                      <option value="Envio a Domicilio">Envio Gratis</option> 
+                      <option value="Retiro por Sucursal">Retiro en Tienda</option>
+                      <option value="Envio a Domicilio">Envio a Domicilio (sin Costo)</option>
+                      <option value="Envio a Domicilio">Envio a Sucursal de Correo Argentino</option>  
                   </select>
                </div>
                 <div class="form-group">
@@ -164,6 +165,7 @@
                     <input class="form-control" type="text" name="Cedclien" placeholder="DNI del cliente" maxlength="15" required="">
                 </div>
                 <div class="form-group">
+                <span>Adjunte Comprobante de Transferencia</span> <span style="color: red;"> *</span>
                       <input type="file" name="comprobante">
                       <div class="input-group">
                         <input type="text" readonly="" class="form-control" placeholder="Seleccione la imagen del comprobante...">
@@ -177,20 +179,22 @@
                     </div>
                 <?php else: ?>
                     <div class="form-group">
-                        <label>Numero de deposito</label>
-                        <input class="form-control" type="text" name="NumDepo" placeholder="Numero de deposito" maxlength="50" required="">
+                        <span>Numero de deposito </span> <span style="color: red;"> *</span> 
+                        <input class="form-control" type="text" name="NumDepo" placeholder="Complete con su numero de transferencia bancaria" maxlength="50" required="">
                     </div>
                     <div class="form-group">
-                      <span>Tipo De Envio</span>
+                      <span>Tipo De Envio</span> <span style="color: red;"> *</span>
                       <select class="form-control" name="tipo-envio" data-toggle="tooltip" data-placement="top" title="Elige El Tipo De Envio">
                           <option value="" disabled="" selected="">Selecciona una opción</option>
-                          <option value="Retiro por Sucursal">Retiro por Sucursal</option>
-                          <option value="Envio a Domicilio">Envio a Domicilio</option> 
+                          <option value="Retiro por Sucursal">Retiro en Tienda</option>
+                          <option value="Envio a Domicilio">Envio a Domicilio (sin Costo)</option> 
+                          <option value="Envio a Sucursal de Correo">Envio a Sucursal de Correo Argentino</option> 
                       </select>
                    </div>
                    
                     <input type="hidden" name="Cedclien" value="<?php echo $_SESSION['UserNIT']; ?>">
                     <div class="form-group">
+                    <span>Adjunte Comprobante de Transferencia</span> <span style="color: red;"> *</span>
                       <input type="file" name="comprobante">
                       <div class="input-group">
                         <input type="text" readonly="" class="form-control" placeholder="Seleccione la imagen del comprobante...">

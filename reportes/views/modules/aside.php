@@ -85,7 +85,7 @@
                               </a>
                           </li>
                           <li class="nav-item">
-                              <a onclick="CargarContenido('content-wrapper','views/productos/productosmenosdelmin.php')"
+                              <a onclick="CargarContenido('content-wrapper','views/productos/productosfaltantes.php')"
                                   class="nav-link active" style="cursor:pointer;">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Productos con Faltante</p>
@@ -388,6 +388,36 @@
                           </a>
                       </li>
 
+                  </ul>
+                  <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                          <a onclick="CargarContenido('content-wrapper','views/pedidoscancelados.php')"
+                              class="nav-link active" style="cursor:pointer;">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Pedidos Cancelados</p>
+                          </a>
+                      </li>
+                      
+                  </ul>
+                  <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                          <a onclick="CargarContenido('content-wrapper','views/pedidosfinalizados.php')"
+                              class="nav-link active" style="cursor:pointer;">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Pedidos Finalizados</p>
+                          </a>
+                      </li>
+                      
+                  </ul>
+                  <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                          <a onclick="CargarContenido('content-wrapper','views/pedidosdiarioss.php')"
+                              class="nav-link active" style="cursor:pointer;">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Pedidos Diarios</p>
+                          </a>
+                      </li>
+                      
                   </ul>
               </li>
               <li class="nav-item menu-close">

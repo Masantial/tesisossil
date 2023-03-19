@@ -70,15 +70,11 @@ SUM(d.CantidadProductos) AS cantidad,
 EXTRACT(
     MONTH
 FROM
-    STR_TO_DATE(LEFT(v.Fecha, 10),
-    '%d-%m-%Y')
-) AS Mes,
+    v.Fecha) as Mes,
 EXTRACT(
     YEAR
 FROM
-    STR_TO_DATE(LEFT(v.Fecha, 10),
-    '%d-%m-%Y')
-) AS AÑO
+   v.Fecha) AS AÑO
 FROM
 venta v
 JOIN detalle d ON
@@ -88,13 +84,13 @@ p.CodigoProd = d.CodigoProd
 JOIN categoria c ON
 c.CodigoCat = p.CodigoCat
 WHERE
-STR_TO_DATE(LEFT(v.Fecha, 10),
-'%d-%m-%Y') AND v.Estado <> 'Cancelado' AND v.Estado <> 'Pendiente'
+ v.Estado <> 'Cancelado' AND v.Estado <> 'Pendiente'
 GROUP BY
-p.CodigoProd
+1,2,3,4,6,7
 ORDER BY
-SUM(d.CantidadProductos)
-DESC";
+p.CodigoProd, Mes
+DESC
+";
 $result = mysqli_query($conexion, $sql);
 while ($mostrar = mysqli_fetch_array($result)) {
     ?>

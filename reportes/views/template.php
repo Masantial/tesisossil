@@ -60,7 +60,7 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
          count(v.NumPedido) as Cantidad
          FROM
          venta v
-          where str_to_date(left(v.Fecha,10), '%d-%m-%Y') >= CURRENT_DATE";
+          where v.Fecha >= CURRENT_DATE";
          $result = mysqli_query($conexion, $sql);
           while ($mostrar = mysqli_fetch_array($result)){
          ?>
@@ -71,9 +71,9 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
                                         <p> Pedidos Nuevos</p>
                                     </div>
                                     <div class="icon">
-                                        <i class="ion-android-cart"></i>
+                                        <i class="ion-bag"></i>
                                     </div>
-                                    <a onclick="CargarContenido('content-wrapper','views/pedidospendientes.php')"
+                                    <a onclick="CargarContenido('content-wrapper','views/pedidosdiarios.php')"
                                         style="cursor:pointer;" class="small-box-footer">Mas info <i
                                             class="fas fa-arrow-circle-right"> </i></a>
                                 </div>
@@ -91,8 +91,7 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
      FROM
          venta v
      WHERE
-         STR_TO_DATE(LEFT(v.Fecha, 10),
-         '%d-%m-%Y') >= CURRENT_DATE ";
+         v.Fecha >= CURRENT_DATE ";
          $result = mysqli_query($conexion, $sql);
           while ($mostrar = mysqli_fetch_array($result)){
          ?>
@@ -110,7 +109,7 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
                                 </div>
                             </div>
                             <div class="col-lg-3 col-6">
-                                <div class="small-box bg-secondary">
+                                <div class="small-box bg-warning">
                                     <div class="inner">
                                         <?php
          $sql = "SELECT
@@ -120,8 +119,7 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
      INNER JOIN venta v ON
          v.NumPedido = d.NumPedido
      WHERE
-         STR_TO_DATE(LEFT(v.Fecha, 10),
-         '%d-%m-%Y') >= CURRENT_DATE";
+        v.Fecha>= CURRENT_DATE";
          $result = mysqli_query($conexion, $sql);
           while ($mostrar = mysqli_fetch_array($result)){
          ?>
@@ -135,7 +133,7 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
                                     </div>
 
                                     <div class="icon">
-                                        <i class="ion-ios-minus"></i>
+                                        <i class="ion-ios-box"></i>
                                     </div>
                                     <a onclick=""
                                         style="cursor:pointer;" class="small-box-footer"><i
@@ -229,7 +227,7 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
                         <section>
                         <div class="card">
                         <div class="card-header">
-<h3 class="card-title">Total de Productos Pedidos</h3>
+<h3 class="card-title">Total de Productos Pedidos Diarios</h3>
 
 <div class="card-tools">
   <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -267,8 +265,7 @@ p.CodigoProd = d.CodigoProd
 INNER JOIN venta v ON
 v.NumPedido = d.NumPedido
 WHERE
-STR_TO_DATE(LEFT(v.Fecha, 10),
-'%d-%m-%Y') >= CURRENT_DATE
+v.Fecha >= CURRENT_DATE
 GROUP BY
 1,
 2";
@@ -295,9 +292,9 @@ while ($mostrar = mysqli_fetch_array($result)) {
 </ul>
 </div>
 <!-- /.card-body -->
-<div class="card-footer text-center">
+<!-- <div class="card-footer text-center">
 <a href="consultas/articulosmenosdelmin.php" class="uppercase">View All Products</a>
-</div>
+</div> -->
 <!-- /.card-footer -->
 </div>
                         </section>

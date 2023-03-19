@@ -35,6 +35,10 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
         background-color: #f37f21;
         color: black;
     }
+    .dataTables_filter {
+        display: none;
+    }
+
     </style>
 </head>
 
@@ -62,10 +66,9 @@ $sql = "SELECT
 p.CodigoProd,
 p.NombreProd,
 SUM(d.CantidadProductos) AS cantidad,
-p.precio AS Precio_Unitario,
-(
-    SUM(d.CantidadProductos) * p.Precio
-) AS monto
+EXTRACT(MONTH
+FROM
+v.Fecha) AS Mes
 FROM
 venta v
 JOIN detalle d ON
@@ -73,12 +76,15 @@ d.NumPedido = v.NumPedido
 JOIN producto p ON
 p.CodigoProd = d.CodigoProd
 WHERE
-v.Estado <> 'Cancelado' AND v.Estado <> 'Pendiente'
+v.Estado <> 'Cancelado' AND v.Estado <> 'Pendiente' AND   month (v.fecha) = extract(month from CURRENT_DATE)
 GROUP BY
-p.CodigoProd
+EXTRACT(MONTH
+FROM
+v.Fecha), p.CodigoProd
 ORDER BY
-SUM(d.CantidadProductos)
-DESC";
+month(v.Fecha),SUM(d.CantidadProductos)
+DESC
+";
 $result = mysqli_query($conexion, $sql);
 while ($mostrar = mysqli_fetch_array($result)) {
 ?>

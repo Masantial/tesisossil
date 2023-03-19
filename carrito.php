@@ -33,9 +33,9 @@
                                             <tr>
                                                 <td>".$fila['NombreProd']."</td> 
                                                 <td>".$fila['NombreProd']."</td>
-                                                <td> ".$pref."</td>
+                                                <td> $".$pref."</td>
                                                 <td> ".$codeProd['cantidad']."</td>
-                                                <td> ".$pref*$codeProd['cantidad']."</td>
+                                                <td> $".number_format($pref*$codeProd['cantidad'],2)."</td>
                                                 <td>
                                                     <form action='process/quitarproducto.php' method='POST' class='FormCatElec' data-form=''>
                                                         <input type='hidden' value='".$codeProd['producto']."' name='codigo'>
@@ -48,8 +48,9 @@
                                 $sumaA += $codeProd['cantidad'];
                                 }
                                 mysqli_free_result($consulta);
+                                
                             }
-                            echo '<tr class="bg-danger"><td colspan="2">Total</td><td><strong>'.$sumaA.'</strong></td><td><strong>$'.number_format($suma,2).'</strong></td></tr></table><div class="ResForm"></div>';
+                            echo '<tr class="bg-danger"><td colspan="3.5"><b>Total</b></td><td><strong>'.$sumaA.'</strong></td><td><strong>$'.number_format($suma,2).'</strong></td></tr></table><div class="ResForm"></div>';
                             echo '
                             <p class="text-center">
                             <a href="product.php" class="btn btn-primary btn-raised btn-lg">Seguir comprando</a>

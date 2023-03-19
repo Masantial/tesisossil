@@ -25,8 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
   FROM
       venta V
   WHERE
-    STR_TO_DATE(LEFT(v.Fecha, 10),
-           '%d-%m-%Y') >= CURRENT_DATE
+    v.Fecha >= CURRENT_DATE
   ORDER BY
       FECHA ASC");
       $sql->bindValue(':id', $_GET['id']);
@@ -42,8 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
   FROM
       venta V
   WHERE
-    STR_TO_DATE(LEFT(v.Fecha, 10),
-           '%d-%m-%Y') >= CURRENT_DATE
+    v.Fecha >= CURRENT_DATE
   ORDER BY
       FECHA ASC");
       $sql->execute();

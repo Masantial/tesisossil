@@ -26,6 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
       venta v
   JOIN cliente c ON
       c.NIT = v.NIT
+      WHERE
+      MONTH(v.fecha) = EXTRACT(MONTH FROM
+      CURRENT_DATE)   
   GROUP BY
       v.TipoEnvio
       ");
@@ -43,6 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
       venta v
   JOIN cliente c ON
       c.NIT = v.NIT
+      WHERE
+      MONTH(v.fecha) = EXTRACT(MONTH FROM
+      CURRENT_DATE)   
   GROUP BY
       v.TipoEnvio
       ");

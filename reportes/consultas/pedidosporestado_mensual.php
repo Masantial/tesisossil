@@ -33,8 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
       venta v
   JOIN cliente c ON
       c.NIT = v.NIT
-  GROUP BY
-      v.Estado
+  WHERE
+      MONTH(v.fecha) = EXTRACT(MONTH
+  FROM
+      CURRENT_DATE)      
+    GROUP BY
+        v.Estado
       ");
       $sql->bindValue(':id', $_GET['id']);
       $sql->execute();
@@ -57,8 +61,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
       venta v
   JOIN cliente c ON
       c.NIT = v.NIT
-  GROUP BY
-      v.Estado
+  WHERE
+      MONTH(v.fecha) = EXTRACT(MONTH
+  FROM
+      CURRENT_DATE)      
+    GROUP BY
+        v.Estado
       ");
       $sql->execute();
       $sql->setFetchMode(PDO::FETCH_ASSOC);

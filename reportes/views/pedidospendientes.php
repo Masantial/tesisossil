@@ -72,7 +72,7 @@ FROM
 venta v
 JOIN cliente c ON
 c.NIT = v.NIT 
-where v.Estado='Pendiente' AND str_to_date(left(v.Fecha,10), '%d-%m-%Y') ";
+where v.Estado='Pendiente'   ";
 $result = mysqli_query($conexion, $sql);
 while ($mostrar = mysqli_fetch_array($result)) {
     ?>

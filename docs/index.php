@@ -22,7 +22,7 @@
         <ol class="carousel-indicators">
             <li data-target="#slider-store" data-slide-to="0" class="active"></li>
             <li data-target="#slider-store" data-slide-to="1"></li>
-            <li data-target="#slider-store" data-slide-to="2"></li>
+            <!-- <li data-target="#slider-store" data-slide-to="2"></li> -->
         </ol>
 
 
@@ -30,21 +30,18 @@
             <div class="item active">
                 <img class="rounded-sm" src="./assets/img/banner1.png" alt="slider1"  >
                 <div class="carousel-caption">
-
                 </div>
             </div>
             <div class="item">
-                <img class="rounded-sm" src="./assets/img/banner2.png" alt="slider2" >
+                <img class="rounded-sm" src="./assets/img/bannerfrascos.png" alt="slider2" >
                 <div class="carousel-caption">
-
                 </div>
             </div>
-            <div class="item">
+            <!-- <div class="item">
                 <img class="rounded-sm" src="./assets/img/banner3.png" alt="slider3"  >
                 <div class="carousel-caption">
-
                 </div>
-            </div>
+            </div> -->
         </div>
 
 
@@ -123,6 +120,7 @@
             </div>
         </div>
     </section>
+    
 
     <?php include './inc/footer.php'; ?>
 </body>

@@ -209,7 +209,7 @@ include './library/consulSQL.php';
                                                 <th class="text-center">Modelo</th>
                                                 <th class="text-center">Marca</th>
                                                 <th class="text-center">Stock</th>
-                                                <th class="text-right">Info</th>
+                                                <th class="text-center">Acciones</th>
 
 
 
@@ -261,6 +261,10 @@ include './library/consulSQL.php';
 
 
                                                 </td>
+                                                <td class="text-right">
+                                                    <a href="infoProd.php?CodigoProd=<?php echo $prod['CodigoProd']; ?>"
+                                                        class="btn btn-success btn-sm"></button><i
+                                                            class="fa fa-cart-plus"></i>&nbsp;</a>
 
                                                 <?php 
                         	$cr++;

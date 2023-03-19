@@ -46,7 +46,7 @@
             </li>
             <li>
               <a href="configAdmin.php?view=order">
-                <i class="fa fa-shopping-cart" aria-hidden="true"></i> &nbsp; Pedidos
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i> &nbsp; Pedidos en Curso
               </a>
             </li>
             <li>

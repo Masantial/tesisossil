@@ -23,20 +23,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
       p.CodigoProd,
       p.NombreProd,
       SUM(d.CantidadProductos) AS cantidad,
-      (
-          SUM(d.CantidadProductos) * p.Precio
-      ) AS monto
+      EXTRACT(MONTH
+      FROM
+      v.Fecha) AS Mes
       FROM
       venta v
       JOIN detalle d ON
       d.NumPedido = v.NumPedido
       JOIN producto p ON
       p.CodigoProd = d.CodigoProd
+      WHERE
+      v.Estado <> 'Cancelado' AND v.Estado <> 'Pendiente' AND MONTH(v.fecha) BETWEEN(
+          EXTRACT(MONTH
+      FROM
+          CURRENT_DATE) -11
+      ) AND EXTRACT(MONTH
+      FROM
+      CURRENT_DATE)
       GROUP BY
-      p.CodigoProd
-      ORDER BY
-      SUM(d.CantidadProductos) 
-      DESC limit 10
+      1,
+      2,
+      4
+  LIMIT 10
+  
       ");
       $sql->bindValue(':id', $_GET['id']);
       $sql->execute();
@@ -48,21 +57,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
       $sql = $conexion->prepare("SELECT
       p.CodigoProd,
       p.NombreProd,
-      SUM(d.CantidadProductos) AS Cantidad,
-      (
-          SUM(d.CantidadProductos) * p.Precio
-      ) AS monto
+      SUM(d.CantidadProductos) AS cantidad,
+      EXTRACT(MONTH
+      FROM
+      v.Fecha) AS Mes
       FROM
       venta v
       JOIN detalle d ON
       d.NumPedido = v.NumPedido
       JOIN producto p ON
       p.CodigoProd = d.CodigoProd
+      WHERE
+      v.Estado <> 'Cancelado' AND v.Estado <> 'Pendiente' AND MONTH(v.fecha) BETWEEN(
+          EXTRACT(MONTH
+      FROM
+          CURRENT_DATE) -11
+      ) AND EXTRACT(MONTH
+      FROM
+      CURRENT_DATE)
       GROUP BY
-      p.CodigoProd
-      ORDER BY
-      SUM(d.CantidadProductos) 
-      DESC limit 10
+      1,
+      2,
+      4
+  LIMIT 10
+  
       ");
       $sql->execute();
       $sql->setFetchMode(PDO::FETCH_ASSOC);

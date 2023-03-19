@@ -65,7 +65,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
   JOIN producto p ON
       p.CodigoProd = d.CodigoProd
   WHERE
-      v.Estado <> 'Cancelado' AND v.Estado <> 'Pendiente'
+      v.Estado <> 'Cancelado' AND v.Estado <> 'Pendiente' and v.fecha BETWEEN DATE_SUB(
+        CURRENT_DATE,
+        INTERVAL 1 MONTH
+    ) and CURRENT_DATE
   GROUP BY
       p.CodigoProd
   ORDER BY

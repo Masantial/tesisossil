@@ -20,7 +20,7 @@ $pdf->Ln(10);
 $pdf->SetFont('Arial','',10);
 $pdf->SetFillColor(0,255,255);
 $pdf->Cell (196,10,utf8_decode('Listado de Clientes'),1,1,'C');
-$pdf->Image('logochico.png',70,10,-100);
+$pdf->Image('encabezado.png',70,10,-100);
 $pdf->Ln(9);
 $pdf->Cell (20,-5,utf8_decode('Codigo Cliente'),1,1,'L');
 $pdf->Cell (80,5,utf8_decode('Nombre'),1,1,'C');

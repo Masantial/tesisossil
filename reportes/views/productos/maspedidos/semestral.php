@@ -30,11 +30,15 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
     <link rel="" href="https://cdn.datatables.net/fixedheader/3.1.6/css/fixedHeader.dataTables.min.css">
 
     <style>
-        /*estilos para la tabla*/
-        table th {
-            background-color: #f37f21;
-            color: black;
-        }
+    /*estilos para la tabla*/
+    table th {
+        background-color: #f37f21;
+        color: black;
+    }
+    .dataTables_filter {
+        display: none;
+    }
+
     </style>
 </head>
 
@@ -54,8 +58,7 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
                     <th>Codigo</th>
                     <th>Descripcion</th>
                     <th>Cantidad</th>
-                    <!-- <th>Precio Unitario</th>
-                    <th>Total</th> -->
+                    <th>Mes</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,10 +67,9 @@ $sql = "SELECT
 p.CodigoProd,
 p.NombreProd,
 SUM(d.CantidadProductos) AS cantidad,
-p.precio AS Precio_Unitario,
-(
-    SUM(d.CantidadProductos) * p.Precio
-) AS monto
+EXTRACT(MONTH
+FROM
+v.Fecha) AS Mes
 FROM
 venta v
 JOIN detalle d ON
@@ -75,12 +77,17 @@ d.NumPedido = v.NumPedido
 JOIN producto p ON
 p.CodigoProd = d.CodigoProd
 WHERE
-v.Estado <> 'Cancelado' AND v.Estado <> 'Pendiente'
+v.Estado <> 'Cancelado' AND v.Estado <> 'Pendiente' AND MONTH(v.fecha) BETWEEN(
+    EXTRACT(MONTH
+FROM
+    CURRENT_DATE) -5
+) AND EXTRACT(MONTH
+FROM
+CURRENT_DATE)
 GROUP BY
-p.CodigoProd
-ORDER BY
-SUM(d.CantidadProductos)
-DESC";
+1,
+2,
+4";
 $result = mysqli_query($conexion, $sql);
 while ($mostrar = mysqli_fetch_array($result)) {
 ?>
@@ -94,12 +101,9 @@ while ($mostrar = mysqli_fetch_array($result)) {
                     <td>
                         <?php echo $mostrar['cantidad'] ?>
                     </td>
-                    <!-- <td>$
-                        <?php echo $mostrar['Precio_Unitario'] ?>
+                    <td>
+                        <?php echo $mostrar['Mes'] ?>
                     </td>
-                    <td>$
-                        <?php echo $mostrar['monto'] ?>
-                    </td> -->
                 </tr>
                 <?php
 }

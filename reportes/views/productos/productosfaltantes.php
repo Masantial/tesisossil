@@ -27,7 +27,7 @@ table th {background-color: #f37f21;color: black;}
 <body>
 <header>
 <h2 class="text-center">Productos con Faltante</h2>   
-<h6 class="text-center">(Según stock minimo parametrizado en el maestro de producto)</h6>     
+<h6 class="text-center">(Según stock minimo parametrizado en el ABM de producto)</h6>     
 </header>  
 <br>
 <div class="table-responsive">
@@ -36,7 +36,7 @@ table th {background-color: #f37f21;color: black;}
             <tr>
                 <th>Codigo</th>
 			    <th>Descripcion</th>
-                <th>Stock</th>
+                <th>Stock Actual</th>
                 <th>Stock Minimo</th>
                 <th>Compra Minima</th>
              

@@ -21,25 +21,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
     if (isset($_GET['id'])) {      
       $sql = $conexion->prepare("SELECT
       c.NIT AS DNI,
-      CONCAT(c.NombreCompleto,' ',c.Apellido) as Nombre_Cliente,
+      CONCAT(c.NombreCompleto, ' ', c.Apellido) AS Nombre_Cliente,
       (
           SUM(d.CantidadProductos) * p.Precio
       ) AS Monto,
       COUNT(v.NumPedido) AS Cant_Pedidos
-  FROM
+      FROM
       venta v
-  JOIN detalle d ON
+      JOIN detalle d ON
       d.NumPedido = v.NumPedido
-  JOIN cliente c ON
+      JOIN cliente c ON
       c.NIT = v.NIT
-  JOIN producto p ON
+      JOIN producto p ON
       p.CodigoProd = d.CodigoProd
-  GROUP BY
+      WHERE
+      v.Estado = 'Enviado' or v.Estado = 'Entregado' AND MONTH(v.fecha) BETWEEN(
+EXTRACT(MONTH
+FROM
+CURRENT_DATE) -5
+) AND EXTRACT(MONTH
+FROM
+CURRENT_DATE)
+      GROUP BY
       1
-  ORDER BY
+      HAVING
+      Cant_Pedidos >= 10
+      ORDER BY
       c.NombreCompleto
-  DESC
-  LIMIT 10
+      DESC;
       ");
       $sql->bindValue(':id', $_GET['id']);
       $sql->execute();
@@ -64,15 +73,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
       JOIN producto p ON
       p.CodigoProd = d.CodigoProd
       WHERE
-      v.Estado <> 'Cancelado'
+      v.Estado = 'Enviado' or v.Estado = 'Entregado' AND MONTH(v.fecha) BETWEEN(
+EXTRACT(MONTH
+FROM
+CURRENT_DATE) -5
+) AND EXTRACT(MONTH
+FROM
+CURRENT_DATE)
       GROUP BY
       1
       HAVING
       Cant_Pedidos >= 10
       ORDER BY
       c.NombreCompleto
-      DESC
-      
+      DESC;
       ");
       $sql->execute();
       $sql->setFetchMode(PDO::FETCH_ASSOC);

@@ -64,11 +64,24 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
             <tbody>
                 <?php
 $sql = "SELECT
-v.NumPedido, CONCAT(c.NombreCompleto,' ',c.Apellido) as Nombre_Cliente, c.NIT, v.TotalPagar, v.Estado, v.Fecha, v.TipoEnvio
+v.NumPedido,
+CONCAT(c.NombreCompleto, ' ', c.Apellido) AS Nombre_Cliente,
+c.NIT,
+v.TotalPagar,
+v.Estado,
+v.Fecha,
+v.TipoEnvio
 FROM
 venta v
 JOIN cliente c ON
-c.NIT = v.NIT ";
+c.NIT = v.NIT
+where MONTH(v.fecha) BETWEEN(
+EXTRACT(MONTH
+FROM
+CURRENT_DATE) -2
+) AND EXTRACT(MONTH
+FROM
+CURRENT_DATE)";
 $result = mysqli_query($conexion, $sql);
 while ($mostrar = mysqli_fetch_array($result)) {
 ?>

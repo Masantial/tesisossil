@@ -20,7 +20,7 @@ $pdf->Ln(10);
 $pdf->SetFont('Arial','',10);
 $pdf->SetFillColor(0,255,255);
 $pdf->Cell (0,10,utf8_decode('Listado de Proveedores'),1,1,'C');
-$pdf->Image('logochico.png',70,10,-100);
+$pdf->Image('encabezado.png',70,10,-100);
 $pdf->Ln(9);
 $pdf->Cell (45,5,utf8_decode('Codigo Proveedor'),1,1,'C');
 $pdf->Cell (145,-5,utf8_decode('Razon Social'),1,1,'C');

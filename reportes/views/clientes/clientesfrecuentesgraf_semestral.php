@@ -35,6 +35,10 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
         background-color: #f37f21;
         color: black;
     }
+    .dataTables_filter {
+        display: none;
+    }
+
     </style>
 </head>
 
@@ -45,18 +49,7 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
             periodo requerido)</h6>
 
     </header>
-    <table align="right" cellspacing="5" cellpadding="5">
-        <tbody>
-            <tr>
-                <td>Fecha Desde:</td>
-                <td><input type="text" id="min" name="min"></td>
-            </tr>
-            <tr>
-                <td>Fecha Hasta:</td>
-                <td><input type="text" id="max" name="max"></td>
-            </tr>
-        </tbody>
-    </table>
+    
     <br>
 
 
@@ -74,7 +67,11 @@ $conexion = mysqli_connect('localhost', 'root', '', 'store');
                 <?php
 $sql = "SELECT
 c.NIT AS DNI,
-CONCAT(c.NombreCompleto, ' ', c.Apellido) AS Nombre_Cliente,
+CONCAT(
+    c.NombreCompleto,
+    ' ',
+    c.Apellido
+) AS Nombre_Cliente,
 (
     SUM(d.CantidadProductos) * p.Precio
 ) AS Monto,
@@ -88,7 +85,13 @@ c.NIT = v.NIT
 JOIN producto p ON
 p.CodigoProd = d.CodigoProd
 WHERE
-v.Estado <> 'Cancelado'
+v.Estado <> 'Cancelado' AND v.Estado <> 'Pendiente' AND MONTH(v.fecha) BETWEEN(
+EXTRACT(MONTH
+FROM
+CURRENT_DATE) -5
+) AND EXTRACT(MONTH
+FROM
+CURRENT_DATE)
 GROUP BY
 1
 HAVING
@@ -96,7 +99,6 @@ Cant_Pedidos >= 10
 ORDER BY
 c.NombreCompleto
 DESC
-
 ";
 $result = mysqli_query($conexion, $sql);
 while ($mostrar = mysqli_fetch_array($result)) {

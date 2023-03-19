@@ -33,6 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
       venta v
   JOIN cliente c ON
       c.NIT = v.NIT
+      where MONTH(v.fecha) BETWEEN(
+EXTRACT(MONTH
+FROM
+CURRENT_DATE) -11
+) AND EXTRACT(MONTH
+FROM
+CURRENT_DATE)
   GROUP BY
       v.Estado
       ");
@@ -57,6 +64,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
       venta v
   JOIN cliente c ON
       c.NIT = v.NIT
+      where MONTH(v.fecha) BETWEEN(
+EXTRACT(MONTH
+FROM
+CURRENT_DATE) -11
+) AND EXTRACT(MONTH
+FROM
+CURRENT_DATE)
   GROUP BY
       v.Estado
       ");

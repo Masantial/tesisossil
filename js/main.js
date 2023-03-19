@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $("#navbar-auto-hidden").autoHidingNavbar();
+    // $("#navbar-auto-hidden").autoHidingNavbar();
     $(".button-mobile-menu").click(function(){
         $("#mobile-menu-list").animate({width: 'toggle'},200);
     });	

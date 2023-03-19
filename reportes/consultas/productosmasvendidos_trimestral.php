@@ -23,23 +23,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
       p.CodigoProd,
       p.NombreProd,
       SUM(d.CantidadProductos) AS cantidad,
-      p.precio AS Precio_Unitario,
-      (
-          SUM(d.CantidadProductos) * p.Precio
-      ) AS monto
-  FROM
+      EXTRACT(MONTH
+      FROM
+      v.Fecha) AS Mes
+      FROM
       venta v
-  JOIN detalle d ON
+      JOIN detalle d ON
       d.NumPedido = v.NumPedido
-  JOIN producto p ON
+      JOIN producto p ON
       p.CodigoProd = d.CodigoProd
-  WHERE
-      v.Estado <> 'Cancelado' AND v.Estado <> 'Pendiente'
-  GROUP BY
-      p.CodigoProd
-  ORDER BY
-      SUM(d.CantidadProductos)
-  DESC
+      WHERE
+      v.Estado <> 'Cancelado' AND v.Estado <> 'Pendiente' AND MONTH(v.fecha) BETWEEN(
+          EXTRACT(MONTH
+      FROM
+          CURRENT_DATE) -2
+      ) AND EXTRACT(MONTH
+      FROM
+      CURRENT_DATE)
+      GROUP BY
+      1,
+      2,
+      4
   LIMIT 10
   
       ");
@@ -54,23 +58,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
       p.CodigoProd,
       p.NombreProd,
       SUM(d.CantidadProductos) AS cantidad,
-      p.precio AS Precio_Unitario,
-      (
-          SUM(d.CantidadProductos) * p.Precio
-      ) AS monto
-  FROM
+      EXTRACT(MONTH
+      FROM
+      v.Fecha) AS Mes
+      FROM
       venta v
-  JOIN detalle d ON
+      JOIN detalle d ON
       d.NumPedido = v.NumPedido
-  JOIN producto p ON
+      JOIN producto p ON
       p.CodigoProd = d.CodigoProd
-  WHERE
-      v.Estado <> 'Cancelado' AND v.Estado <> 'Pendiente'
-  GROUP BY
-      p.CodigoProd
-  ORDER BY
-      SUM(d.CantidadProductos)
-  DESC
+      WHERE
+      v.Estado <> 'Cancelado' AND v.Estado <> 'Pendiente' AND MONTH(v.fecha) BETWEEN(
+          EXTRACT(MONTH
+      FROM
+          CURRENT_DATE) -2
+      ) AND EXTRACT(MONTH
+      FROM
+      CURRENT_DATE)
+      GROUP BY
+      1,
+      2,
+      4
   LIMIT 10
   
       ");
